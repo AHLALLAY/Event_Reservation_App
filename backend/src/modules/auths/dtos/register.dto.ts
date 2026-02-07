@@ -1,5 +1,5 @@
 import { IsEmail, IsEnum, IsString, MaxLength, MinLength } from 'class-validator';
-import { UserRole } from 'src/shared/user.role';
+import { UserRole } from '../../../shared/user.role';
 
 export class RegisterDto {
     @IsString()
