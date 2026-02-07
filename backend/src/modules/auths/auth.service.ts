@@ -9,13 +9,12 @@ import { LoginDto } from "./dtos/login.dto";
 export class AuthService {
     constructor(
         private userService: UserService,
-        private jwtServcice: JwtService,
+        private jwtService: JwtService,
     ) { }
 
     async register(userData: RegisterDto) {
         const user = await this.userService.createUser(userData);
-
-        const token = this.jwtServcice.sign({
+        const token = this.jwtService.sign({
             id: user.id,
             email: user.email,
             role: user.role
@@ -26,14 +25,13 @@ export class AuthService {
     async login(userCredential: LoginDto) {
         const user = await this.userService.findByEmail(userCredential.email);
         if (!user || !(await bcrypt.compare(userCredential.password, user.password))) throw new UnauthorizedException();
-
-        const token = this.jwtServcice.sign({
+        const { password: _, ...rest } = user;
+        const token = this.jwtService.sign({
             id: user.id,
             email: user.email,
             role: user.role,
         });
-        const { password: _, ...rest } = user;
-        return { user: rest, token };
+        return { user: rest, token }
     }
 
     logout() {
