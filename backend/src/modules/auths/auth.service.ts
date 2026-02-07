@@ -25,14 +25,18 @@ export class AuthService {
 
     async login(userCredential: LoginDto) {
         const user = await this.userService.findByEmail(userCredential.email);
-        if(!user || !(await bcrypt.compare(userCredential.password, user.password))) throw new UnauthorizedException();
+        if (!user || !(await bcrypt.compare(userCredential.password, user.password))) throw new UnauthorizedException();
 
         const token = this.jwtServcice.sign({
             id: user.id,
             email: user.email,
             role: user.role,
         });
-        const {password:_ , ...rest} = user;
-        return {user: rest, token};
+        const { password: _, ...rest } = user;
+        return { user: rest, token };
+    }
+
+    logout() {
+        return { message: 'Déconnexion ok' };
     }
 }
