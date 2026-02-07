@@ -1,0 +1,36 @@
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+
+export enum EventStatus {
+    draft = 'draft',
+    published = 'published',
+    canceled = 'canceled',
+}
+
+@Entity('events')
+export class Event {
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
+
+    @Column({ length: 20 })
+    title: string;
+
+    @Column({ type: 'text', nullable: true, length: 200 })
+    description: string;
+
+    @Column({ type: 'timestamptz' })
+
+    @Column({ length: 100 })
+    place: string;
+
+    @Column({ type: 'int', default: 1 })
+    capacity: number;
+
+    @Column({ type: 'enum', enum: EventStatus, default: EventStatus.draft })
+    status: EventStatus;
+
+    @CreateDateColumn()
+    createdAt: Date;
+
+    @UpdateDateColumn()
+    updatedAt: Date;
+}
