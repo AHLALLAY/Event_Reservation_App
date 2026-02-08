@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Query } from "@nestjs/common";
 import { EventService } from "./events.service";
 import { EventDto } from "./dtos/events.dto";
 import { EventStatus } from "./entity/events.entity";
@@ -13,9 +13,13 @@ export class EventController {
     }
 
     @Get()
-    async getEvents(@Query('status') status?:EventStatus) {
+    async getEvents(@Query('status') status?: EventStatus) {
         return this.eventService.getEvents(status);
     }
 
-    
+    @Get(':id')
+    async getEventById(@Param('id') eventId: string) {
+        return this.eventService.getEventById(eventId);
+    }
+
 }
