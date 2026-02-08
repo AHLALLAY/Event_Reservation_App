@@ -1,6 +1,6 @@
 import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
-import { UserRole } from "src/shared/user.role";
+import { UserRole } from "../../../shared/user.role";
 
 export const ROLES_KEY = 'roles';
 
