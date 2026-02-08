@@ -3,11 +3,11 @@ import { EventService } from "./events.service";
 import { EventDto } from "./dtos/events.dto";
 import { EventStatus } from "./entity/events.entity";
 
-@Controller()
+@Controller('events')
 export class EventController {
     constructor(private eventService: EventService) { }
 
-    @Post()
+    @Post('event')
     async createEvent(@Body() eventData: EventDto) {
         return this.eventService.createEvent(eventData);
     }
