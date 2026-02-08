@@ -22,10 +22,8 @@ export class EventService {
     }
 
     async getEvents(status?: EventStatus) {
-        if (status) {
-            return await this.eventRepo.find({ where: { status } })
-        }
-        return await this.eventRepo.find({})
+        if (status) return await this.eventRepo.find({ where: { status } });
+        return await this.eventRepo.find({});
     }
 
     async getEventById(eventId: string) {
