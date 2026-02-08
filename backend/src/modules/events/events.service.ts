@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { Event } from "./entity/events.entity";
+import { Event, EventStatus } from "./entity/events.entity";
 import { EventDto } from "./dtos/events.dto";
 
 
@@ -20,4 +20,13 @@ export class EventService {
         });
         return this.eventRepo.save(evnt);
     }
+
+    async getEvents(status?: EventStatus){
+        if(status){
+            return await this.eventRepo.find({where: {status}})
+        }
+        return await this.eventRepo.find({})
+    }
+
+    
 }
