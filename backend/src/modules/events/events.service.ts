@@ -34,5 +34,15 @@ export class EventService {
         return event;
     }
 
+    async updateEvent(eventId: string, newData: EventDto) {
+        const event = await this.eventRepo.findOne({where: {id: eventId}});
+        if (!event) throw new NotFoundException('Evenement introuvable');
+
+        Object.assign(event, newData);
+        if(newData.startDate) event.startDate = new Date(newData.startDate);
+        if(newData.endDate) event.endDate = new Date(newData.endDate);
+
+        return this.eventRepo.save(event);
+    }
 
 }
