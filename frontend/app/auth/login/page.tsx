@@ -39,7 +39,7 @@ export default function Login() {
             }
             localStorage.setItem('token', data.token);
             localStorage.setItem('user', JSON.stringify(user));
-            router.push(`/${data.user.role}/`);
+            router.push(`/${data.user.role}/dashboard`);
 
         } catch (err) {
             setError(err instanceof Error ? err.message : "");
