@@ -32,7 +32,13 @@ export default function Login() {
                 setError(data.message || "login failed");
                 return;
             }
+            const user = {
+                name: data.user.fullName,
+                email: data.user.email,
+                role: data.user.role,
+            }
             localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(user));
             router.push(`/${data.user.role}/`);
 
         } catch (err) {
