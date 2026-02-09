@@ -4,6 +4,7 @@ import { StatsCard } from "@/components/ui/statusCard";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import AdminLayout from "../layout";
 
 export default function AdminDashboard() {
     const router = useRouter();
@@ -15,7 +16,7 @@ export default function AdminDashboard() {
     }
 
     return (
-        <>
+        <AdminLayout>
             <div className="m-8 p-2 border-b-2 flex justify-between">
                 <div>
                     <Link href="/admin/dashboard" className="hover:border-b-1 rounded-b-lg p-2">Dashboard</Link>
@@ -45,6 +46,6 @@ export default function AdminDashboard() {
                     ]}
                 />
             </div>
-        </>
+        </AdminLayout>
     );
 }
