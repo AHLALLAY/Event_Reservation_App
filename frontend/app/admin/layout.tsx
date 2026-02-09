@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function AdminLayout({ children, }: { children: React.ReactNode; }) {
     const router = useRouter();
-    const [allowed, setAllowed] = useState(false);
+    const [allowed, setAllowed] = useState<boolean | null>(null);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -20,7 +20,7 @@ export default function AdminLayout({ children, }: { children: React.ReactNode; 
             }
         }
 
-        if (!token || role != 'admin') {
+        if (!token || role !== 'admin') {
             router.replace('/auth/login');
             return;
         }
