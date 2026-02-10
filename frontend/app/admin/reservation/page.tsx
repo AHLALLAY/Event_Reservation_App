@@ -1,7 +1,9 @@
 'use client';
 
 import NavBar from "@/components/ui/header";
+import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
+
 type ReservationRow = {
     id?: string;
     status?: string;
@@ -33,6 +35,34 @@ export default function AdminReservationPage() {
         }
     };
 
+    const confirmReservation = async (id: string) => {
+        if (!id) return;
+        try {
+            const res = await fetch(`http://localhost:3001/reservations/${id}/confirm`, { method: 'PATCH' });
+            if (res.ok) getData();
+            else {
+                const err = await res.json();
+                setFetchError(err.message);
+            }
+        } catch {
+            setFetchError('Cannot reach the API.');
+        }
+    };
+
+    const refuseReservation = async (id: string) => {
+        if (!id) return;
+        try {
+            const res = await fetch(`http://localhost:3001/reservations/${id}/refuse`, { method: 'PATCH' });
+            if (res.ok) getData();
+            else {
+                const err = await res.json();
+                setFetchError(err.message);
+            }
+        } catch {
+            setFetchError('Cannot reach the API.');
+        }
+    };
+
     useEffect(() => {
         getData();
     }, []);
@@ -40,10 +70,11 @@ export default function AdminReservationPage() {
     return (
         <>
             <NavBar />
-            {fetchError && <p className="p-2 text-amber-600 text-sm">{fetchError}</p>}
-            <div className="p-2">
-                <h1 className="text-xl font-semibold mb-2">Reservations</h1>
-                <table className="w-full divide-y">
+            <main className="mx-auto max-w-6xl px-4 py-6">
+                {fetchError && <p className="mb-4 text-amber-600 text-sm">{fetchError}</p>}
+                <h1 className="mb-4 text-xl font-semibold">Reservations</h1>
+                <div className="overflow-x-auto rounded border">
+                <table className="w-full min-w-[640px] divide-y">
                     <thead>
                         <tr>
                             <th>Event</th>
@@ -51,6 +82,7 @@ export default function AdminReservationPage() {
                             <th>Email</th>
                             <th>Status</th>
                             <th>Date</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,11 +93,21 @@ export default function AdminReservationPage() {
                                 <td>{item.user?.email ?? '—'}</td>
                                 <td>{statusLabel[item.status ?? ''] ?? item.status}</td>
                                 <td>{item.createdAt ? new Date(item.createdAt).toLocaleDateString() : '—'}</td>
+                                <td className="flex flex-wrap gap-2">
+                                    {item.status === 'pending' && (
+                                        <>
+                                            <Button type="button" onClick={() => item.id && confirmReservation(item.id)}>Accept</Button>
+                                            <Button type="button" onClick={() => item.id && refuseReservation(item.id)} className="bg-red-500 hover:bg-red-600 text-white">Refuse</Button>
+                                        </>
+                                    )}
+                                    {item.status !== 'pending' && '—'}
+                                </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
-            </div>
+                </div>
+            </main>
         </>
     );
 }
