@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { ReservationsService } from './reservations.service';
 import { CreateReservationDto } from './dtos/create-reservation.dto';
 import { AuthGuard } from '../auths/guards/auth.guard';
@@ -22,5 +22,15 @@ export class ReservationsController {
     @UseGuards(AuthGuard)
     getMyReservations(@Req() req: { user: { id: string } }) {
         return this.reservationsService.getMyReservations(req.user.id);
+    }
+
+    @Patch(':id/confirm')
+    confirmReservation(@Param('id') reservationId: string) {
+        return this.reservationsService.confirmReservation(reservationId);
+    }
+
+    @Patch(':id/refuse')
+    refuseReservation(@Param('id') reservationId: string) {
+        return this.reservationsService.refuseReservation(reservationId);
     }
 }

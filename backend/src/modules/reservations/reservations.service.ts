@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Reservation, ReservationStatus } from './entity/reservation.entity';
@@ -62,5 +62,31 @@ export class ReservationsService {
             relations: ['event', 'user'],
             order: { createdAt: 'DESC' },
         });
+    }
+
+    async confirmReservation(reservationId: string) {
+        const reservation = await this.reservationRepo.findOne({
+            where: { id: reservationId },
+            relations: ['event', 'user'],
+        });
+        if (!reservation) throw new NotFoundException('Réservation introuvable');
+        if (reservation.status !== ReservationStatus.pending) {
+            throw new BadRequestException('Seule une réservation en attente peut être acceptée.');
+        }
+        reservation.status = ReservationStatus.confirmed;
+        return this.reservationRepo.save(reservation);
+    }
+
+    async refuseReservation(reservationId: string) {
+        const reservation = await this.reservationRepo.findOne({
+            where: { id: reservationId },
+            relations: ['event', 'user'],
+        });
+        if (!reservation) throw new NotFoundException('Réservation introuvable');
+        if (reservation.status !== ReservationStatus.pending) {
+            throw new BadRequestException('Seule une réservation en attente peut être refusée.');
+        }
+        reservation.status = ReservationStatus.refused;
+        return this.reservationRepo.save(reservation);
     }
 }
