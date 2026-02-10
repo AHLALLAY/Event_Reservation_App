@@ -43,6 +43,7 @@ export default function AdminDashboard() {
         published: events.filter((e) => e.status === 'published').length,
         canceled: events.filter((e) => e.status === 'canceled').length,
         draft: events.filter((e) => e.status === 'draft').length,
+        ended: events.filter((e) => e.status === 'ended').length,
     };
 
     const reservationsByStatus = {
@@ -63,6 +64,7 @@ export default function AdminDashboard() {
                         { label: "Published", value: eventsByStatus.published },
                         { label: "Canceled", value: eventsByStatus.canceled },
                         { label: "Draft", value: eventsByStatus.draft },
+                        { label: "Ended", value: eventsByStatus.ended },
                     ]}
                 />
                 <StatsCard
