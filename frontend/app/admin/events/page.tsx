@@ -6,6 +6,13 @@ import Link from "next/link";
 
 type EventRow = { id?: string; title?: string; description?: string; place?: string; startDate?: string; endDate?: string; status?: string; capacity?: number };
 
+const statusLabel: Record<string, string> = {
+    draft: 'Draft',
+    published: 'Published',
+    canceled: 'Canceled',
+    ended: 'Ended',
+};
+
 export default function EventsPage() {
     const [data, setData] = useState<EventRow[]>([]);
     const [fetchError, setFetchError] = useState<string | null>(null);
@@ -72,12 +79,12 @@ export default function EventsPage() {
                                 <td>{item.place}</td>
                                 <td>{item.startDate}</td>
                                 <td>{item.endDate}</td>
-                                <td>{item.status}</td>
+                                <td>{statusLabel[item.status ?? ''] ?? item.status}</td>
                                 <td>
                                     {item.status === 'draft' && (
                                         <Button type="button" onClick={() => updateStatus(item, 'published')}>Publish</Button>
                                     )}
-                                    {(item.status === 'published' || item.status === 'terminer') && (
+                                    {(item.status === 'published' || item.status === 'ended') && (
                                         <Button type="button" onClick={() => updateStatus(item, 'canceled')} className="bg-red-500 hover:bg-red-600 text-white">Cancel</Button>
                                     )}
                                     {item.status === 'canceled' && '—'}
