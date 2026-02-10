@@ -24,7 +24,7 @@ export default function AddEvent() {
         setLoading(true);
         try {
             if (!title || !startDate || !endDate || !place) {
-                setError("Titre, dates et lieu sont requis.");
+                setError("Title, dates and place are required.");
                 setLoading(false);
                 return;
             }
@@ -42,13 +42,13 @@ export default function AddEvent() {
             });
             const data = await res.json();
             if (!res.ok) {
-                setError(data.message || "Erreur lors de la création.");
+                setError(data.message || "Error creating event.");
                 setLoading(false);
                 return;
             }
             router.push('/admin/events');
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Erreur réseau");
+            setError(err instanceof Error ? err.message : "Network error");
         } finally {
             setLoading(false);
         }
@@ -60,18 +60,18 @@ export default function AddEvent() {
             <div className="max-w-sm mx-auto p-6">
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4 border rounded-lg p-2">
                     <div className="flex justify-center">
-                        <h1 className="text-xl font-semibold">Ajouter un événement</h1>
+                        <h1 className="text-xl font-semibold">Add event</h1>
                     </div>
                     {error && <span className="text-red-500 text-sm">{error}</span>}
                     <div className="flex flex-col space-y-4">
-                        <Input label="Titre" id="title" type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="" maxLength={20} />
+                        <Input label="Title" id="title" type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="" maxLength={20} />
                         <Input label="Description" id="description" value={description} onChange={(e) => setDescription(e.target.value)} className="" />
-                        <Input label="Début" id="startDate" value={startDate} type="datetime-local" onChange={(e) => setStartDate(e.target.value)} className="" />
-                        <Input label="Fin" id="endDate" value={endDate} type="datetime-local" onChange={(e) => setEndDate(e.target.value)} className="" />
-                        <Input label="Lieu" id="place" value={place} type="text" onChange={(e) => setPlace(e.target.value)} className="" maxLength={100} />
-                        <Input label="Capacité" id="capacity" type="number" value={String(capacity)} onChange={(e) => setCapacity(Number(e.target.value) || 1)} className="" min={1} />
+                        <Input label="Start" id="startDate" value={startDate} type="datetime-local" onChange={(e) => setStartDate(e.target.value)} className="" />
+                        <Input label="End" id="endDate" value={endDate} type="datetime-local" onChange={(e) => setEndDate(e.target.value)} className="" />
+                        <Input label="Place" id="place" value={place} type="text" onChange={(e) => setPlace(e.target.value)} className="" maxLength={100} />
+                        <Input label="Capacity" id="capacity" type="number" value={String(capacity)} onChange={(e) => setCapacity(Number(e.target.value) || 1)} className="" min={1} />
                     </div>
-                    <Button type="submit" disabled={loading}>Créer l'événement</Button>
+                    <Button type="submit" disabled={loading}>Create event</Button>
                 </form>
             </div>
         </>

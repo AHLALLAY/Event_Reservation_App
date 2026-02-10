@@ -30,7 +30,7 @@ export default function AdminLayout({ children, }: { children: React.ReactNode; 
     if (allowed === null) {
         return (
             <div>
-                <p>chargement ...</p>
+                <p>Loading...</p>
             </div>
         );
     }

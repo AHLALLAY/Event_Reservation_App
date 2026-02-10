@@ -50,13 +50,13 @@ export default function Register() {
                 </div>
                 {error && <span className="text-red-500 text-sm">{error}</span>}
                 <div className="flex flex-col space-y-4">
-                    <Input label="full Name" value={fullName} onChange={(e) => setFullName(e.target.value)} className="" maxLength={30} />
+                    <Input label="Full name" value={fullName} onChange={(e) => setFullName(e.target.value)} className="" maxLength={30} />
                     <Input label="email" id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="" />
                     <Input label="password" id="password" value={password} type="password" onChange={(e) => setPassword(e.target.value)} className="" minLength={8} />
                     <div className="flex flex-col gap-1">
-                        <label htmlFor="role">roles</label>
+                        <label htmlFor="role">Role</label>
                         <select name="role" id="role" value={role} onChange={(e) => setRole(e.target.value)} className="border rounded px-3 py-2">
-                            <option value="">role ...</option>
+                            <option value="">Select role...</option>
                             <option value="admin">admin</option>
                             <option value="participant">participant</option>
                         </select>
