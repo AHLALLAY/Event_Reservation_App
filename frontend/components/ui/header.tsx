@@ -31,7 +31,7 @@ export default function NavBar() {
             <div>
                 <Link href={`${basePath}/dashboard`} className="hover:border-b rounded-b-lg p-2">Dashboard</Link>
                 <Link href={`${basePath}/events`} className="ml-4 hover:border-b rounded-b-lg p-2">Events</Link>
-                <Link href={`${basePath}/reservation`} className="ml-4 hover:border-b rounded-b-lg p-2">Booking</Link>
+                <Link href={basePath === '/participant' ? '/participant/reservation/me' : `${basePath}/reservation`} className="ml-4 hover:border-b rounded-b-lg p-2">Booking</Link>
             </div>
             <div>
                 <Button type="button" onClick={logout} className="bg-red-500 text-white hover:bg-red-600">Logout</Button>
