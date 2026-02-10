@@ -33,6 +33,8 @@ export default function Login() {
                 return;
             }
             const user = {
+                id: data.user.id,
+                fullName: data.user.fullName,
                 name: data.user.fullName,
                 email: data.user.email,
                 role: data.user.role,
