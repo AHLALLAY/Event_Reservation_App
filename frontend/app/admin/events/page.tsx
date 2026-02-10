@@ -29,21 +29,22 @@ export default function EventsPage() {
         }
     };
 
-    const updateStatus = async (item: EventRow, newStatus: string) => {
+    const publishEvent = async (item: EventRow) => {
         if (!item.id) return;
-        const body = {
-            title: item.title,
-            description: item.description ?? '',
-            startDate: item.startDate,
-            endDate: item.endDate,
-            place: item.place,
-            capacity: item.capacity ?? 1,
-            status: newStatus,
-        };
-        const res = await fetch(`http://localhost:3001/events/event/${item.id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body),
+        const res = await fetch(`http://localhost:3001/events/event/${item.id}/publish`, {
+            method: 'PATCH',
+        });
+        if (res.ok) getData();
+        else {
+            const err = await res.json();
+            setFetchError(err.message);
+        }
+    };
+
+    const cancelEvent = async (item: EventRow) => {
+        if (!item.id) return;
+        const res = await fetch(`http://localhost:3001/events/event/${item.id}/cancel`, {
+            method: 'PATCH',
         });
         if (res.ok) getData();
     };
@@ -82,10 +83,10 @@ export default function EventsPage() {
                                 <td>{statusLabel[item.status ?? ''] ?? item.status}</td>
                                 <td>
                                     {item.status === 'draft' && (
-                                        <Button type="button" onClick={() => updateStatus(item, 'published')}>Publish</Button>
+                                        <Button type="button" onClick={() => publishEvent(item)}>Publish</Button>
                                     )}
                                     {(item.status === 'published' || item.status === 'ended') && (
-                                        <Button type="button" onClick={() => updateStatus(item, 'canceled')} className="bg-red-500 hover:bg-red-600 text-white">Cancel</Button>
+                                        <Button type="button" onClick={() => cancelEvent(item)} className="bg-red-500 hover:bg-red-600 text-white">Cancel</Button>
                                     )}
                                     {item.status === 'canceled' && '—'}
                                 </td>
