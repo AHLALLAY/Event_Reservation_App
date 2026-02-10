@@ -50,22 +50,24 @@ export default function Login() {
         }
     }
     return (
-        <div className="max-w-sm mx-auto p-6">
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4 border rounded-lg p-2">
-                <div className="flex justify-center">
-                    <h1 className="text-xl font-semibold">Login</h1>
-                </div>
-                {error && <span className="text-red-500 text-sm">{error}</span>}
-                <div className="flex flex-col space-y-4">
-                    <Input label="email" id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="" />
-                    <Input label="password" id="password" value={password} type="password" onChange={(e) => setPassword(e.target.value)} className="" minLength={8} />
-                </div>
-                <Button type="submit" disabled={loading}>{"login"}</Button>
+        <div className="flex min-h-screen flex-col items-center justify-center px-4 py-8">
+            <div className="w-full max-w-sm">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4 border rounded-lg p-6">
+                    <div className="flex justify-center">
+                        <h1 className="text-xl font-semibold">Login</h1>
+                    </div>
+                    {error && <span className="text-red-500 text-sm">{error}</span>}
+                    <div className="flex flex-col space-y-4">
+                        <Input label="email" id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="" />
+                        <Input label="password" id="password" value={password} type="password" onChange={(e) => setPassword(e.target.value)} className="" minLength={8} />
+                    </div>
+                    <Button type="submit" disabled={loading}>{"login"}</Button>
 
-                <div className="felx text-center text-sm font-meduim">
-                    <u><a href="/auth/register">register</a></u>
-                </div>
-            </form>
+                    <div className="felx text-center text-sm font-meduim">
+                        <u><a href="/auth/register">register</a></u>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }

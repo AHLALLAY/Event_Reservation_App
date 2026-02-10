@@ -55,12 +55,15 @@ export default function EventsPage() {
     return (
         <>
             <NavBar />
-            <Button><Link href="/admin/events/event">Add event</Link></Button>
-            {fetchError && (
-                <p className="p-2 text-amber-600 text-sm">{fetchError}</p>
-            )}
-            <div className="p-2">
-                <table className="w-full divide-y">
+            <main className="mx-auto max-w-6xl px-4 py-6">
+                <div className="mb-4 flex flex-wrap items-center justify-between gap-4">
+                    <Button><Link href="/admin/events/event">Add event</Link></Button>
+                    {fetchError && (
+                        <p className="text-amber-600 text-sm">{fetchError}</p>
+                    )}
+                </div>
+                <div className="overflow-x-auto rounded border">
+                <table className="w-full min-w-[640px] divide-y">
                     <thead>
                         <tr>
                             <th>title</th>
@@ -94,7 +97,8 @@ export default function EventsPage() {
                         ))}
                     </tbody>
                 </table>
-            </div>
+                </div>
+            </main>
         </>
     );
 }

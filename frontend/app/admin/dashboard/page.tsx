@@ -56,8 +56,9 @@ export default function AdminDashboard() {
     return (
         <>
             <NavBar />
-            {fetchError && <p className="p-2 text-amber-600 text-sm">{fetchError}</p>}
-            <div className="flex p-2">
+            <main className="mx-auto max-w-6xl px-4 py-6">
+                {fetchError && <p className="mb-4 text-amber-600 text-sm">{fetchError}</p>}
+                <div className="flex flex-wrap gap-6">
                 <StatsCard
                     title="Events by status"
                     items={[
@@ -76,7 +77,8 @@ export default function AdminDashboard() {
                         { label: "Canceled", value: reservationsByStatus.canceled },
                     ]}
                 />
-            </div>
+                </div>
+            </main>
         </>
     );
 }

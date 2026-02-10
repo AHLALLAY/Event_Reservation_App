@@ -56,13 +56,14 @@ export default function ParticipantReservationPage() {
     return (
         <>
             <NavBar />
-            {fetchError && <p className="p-2 text-amber-600 text-sm">{fetchError}</p>}
-            <div className="p-2">
-                <h1 className="text-xl font-semibold mb-2">Your reservations</h1>
+            <main className="mx-auto max-w-6xl px-4 py-6">
+                {fetchError && <p className="mb-4 text-amber-600 text-sm">{fetchError}</p>}
+                <h1 className="mb-4 text-xl font-semibold">Your reservations</h1>
                 {reservations.length === 0 && !fetchError ? (
                     <p className="text-gray-500">You have no reservations yet.</p>
                 ) : (
-                    <table className="w-full divide-y">
+                    <div className="overflow-x-auto rounded border">
+                    <table className="w-full min-w-[640px] divide-y">
                         <thead>
                             <tr>
                                 <th className="text-left p-2">Event</th>
@@ -86,8 +87,9 @@ export default function ParticipantReservationPage() {
                             ))}
                         </tbody>
                     </table>
+                    </div>
                 )}
-            </div>
+            </main>
         </>
     );
 }

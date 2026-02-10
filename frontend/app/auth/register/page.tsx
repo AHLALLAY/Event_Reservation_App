@@ -43,30 +43,32 @@ export default function Register() {
         }
     }
     return (
-        <div className="max-w-sm mx-auto p-6">
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4 border rounded-lg p-2">
-                <div className="flex justify-center">
-                    <h1 className="text-xl font-semibold">Register</h1>
-                </div>
-                {error && <span className="text-red-500 text-sm">{error}</span>}
-                <div className="flex flex-col space-y-4">
-                    <Input label="Full name" value={fullName} onChange={(e) => setFullName(e.target.value)} className="" maxLength={30} />
-                    <Input label="email" id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="" />
-                    <Input label="password" id="password" value={password} type="password" onChange={(e) => setPassword(e.target.value)} className="" minLength={8} />
-                    <div className="flex flex-col gap-1">
-                        <label htmlFor="role">Role</label>
-                        <select name="role" id="role" value={role} onChange={(e) => setRole(e.target.value)} className="border rounded px-3 py-2">
-                            <option value="">Select role...</option>
-                            <option value="admin">admin</option>
-                            <option value="participant">participant</option>
-                        </select>
+        <div className="flex min-h-screen flex-col items-center justify-center px-4 py-8">
+            <div className="w-full max-w-sm">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4 border rounded-lg p-6">
+                    <div className="flex justify-center">
+                        <h1 className="text-xl font-semibold">Register</h1>
                     </div>
-                </div>
-                <Button type="submit" disabled={loading}>{"register"}</Button>
-                <div className="felx text-center text-sm font-meduim">
-                    <u><a href="/auth/login">login</a></u>
-                </div>
-            </form>
+                    {error && <span className="text-red-500 text-sm">{error}</span>}
+                    <div className="flex flex-col space-y-4">
+                        <Input label="Full name" value={fullName} onChange={(e) => setFullName(e.target.value)} className="" maxLength={30} />
+                        <Input label="email" id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="" />
+                        <Input label="password" id="password" value={password} type="password" onChange={(e) => setPassword(e.target.value)} className="" minLength={8} />
+                        <div className="flex flex-col gap-1">
+                            <label htmlFor="role">Role</label>
+                            <select name="role" id="role" value={role} onChange={(e) => setRole(e.target.value)} className="border rounded px-3 py-2">
+                                <option value="">Select role...</option>
+                                <option value="admin">admin</option>
+                                <option value="participant">participant</option>
+                            </select>
+                        </div>
+                    </div>
+                    <Button type="submit" disabled={loading}>{"register"}</Button>
+                    <div className="felx text-center text-sm font-meduim">
+                        <u><a href="/auth/login">login</a></u>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }

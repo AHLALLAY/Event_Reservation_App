@@ -57,8 +57,9 @@ export default function AddEvent() {
     return (
         <>
             <NavBar />
-            <div className="max-w-sm mx-auto p-6">
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4 border rounded-lg p-2">
+            <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-start px-4 py-8">
+                <div className="w-full max-w-sm">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4 border rounded-lg p-6">
                     <div className="flex justify-center">
                         <h1 className="text-xl font-semibold">Add event</h1>
                     </div>
@@ -73,6 +74,7 @@ export default function AddEvent() {
                     </div>
                     <Button type="submit" disabled={loading}>Create event</Button>
                 </form>
+                </div>
             </div>
         </>
     );

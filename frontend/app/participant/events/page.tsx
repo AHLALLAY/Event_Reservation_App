@@ -69,9 +69,10 @@ export default function ParticipantEventsPage() {
     return (
         <>
             <NavBar />
-            {fetchError && <p className="p-2 text-amber-600 text-sm">{fetchError}</p>}
-            <div className="p-2 overflow-x-auto">
-                <table className="w-full divide-y">
+            <main className="mx-auto max-w-6xl px-4 py-6">
+                {fetchError && <p className="mb-4 text-amber-600 text-sm">{fetchError}</p>}
+                <div className="overflow-x-auto rounded border">
+                <table className="w-full min-w-[640px] divide-y">
                     <thead>
                         <tr>
                             <th className="text-left p-2">Title</th>
@@ -105,7 +106,8 @@ export default function ParticipantEventsPage() {
                         ))}
                     </tbody>
                 </table>
-            </div>
+                </div>
+            </main>
         </>
     );
 }
