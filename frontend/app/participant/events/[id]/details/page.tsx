@@ -19,7 +19,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
     const { id } = await params;
     let event: EventDetail | null = null;
     try {
-        const res = await fetch('http://localhost:3001/events/${id}');
+        const res = await fetch(`http://localhost:3001/events/${id}`);
         if (!res.ok) {
             notFound();
             return null;
