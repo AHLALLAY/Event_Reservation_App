@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Event, EventStatus } from "./entity/events.entity";
@@ -43,4 +43,20 @@ export class EventService {
         return this.eventRepo.save(event);
     }
 
+    async publishEvent(eventId: string) {
+        const event = await this.eventRepo.findOne({ where: { id: eventId } });
+        if (!event) throw new NotFoundException('Evenement introuvable');
+        if (event.status !== EventStatus.draft) {
+            throw new BadRequestException("Seul un événement en brouillon peut être publié.");
+        }
+        event.status = EventStatus.published;
+        return this.eventRepo.save(event);
+    }
+
+    async cancelEvent(eventId: string) {
+        const event = await this.eventRepo.findOne({ where: { id: eventId } });
+        if (!event) throw new NotFoundException('Evenement introuvable');
+        event.status = EventStatus.canceled;
+        return this.eventRepo.save(event);
+    }
 }

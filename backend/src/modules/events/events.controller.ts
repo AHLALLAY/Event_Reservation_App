@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Query } from "@nestjs/common";
+import { Body, Controller, Get, Param, Patch, Post, Put, Query } from "@nestjs/common";
 import { EventService } from "./events.service";
 import { EventDto } from "./dtos/events.dto";
 import { EventStatus } from "./entity/events.entity";
@@ -27,4 +27,13 @@ export class EventController {
         return this.eventService.updateEvent(eventId, newData);
     }
 
+    @Patch('event/:id/publish')
+    async publishEvent(@Param('id') eventId: string) {
+        return this.eventService.publishEvent(eventId);
+    }
+
+    @Patch('event/:id/cancel')
+    async cancelEvent(@Param('id') eventId: string) {
+        return this.eventService.cancelEvent(eventId);
+    }
 }
